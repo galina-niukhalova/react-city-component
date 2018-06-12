@@ -1,0 +1,10 @@
+import React, { Component } from 'react';
+import City from './city';
+
+export default class App extends Component {
+  render() {
+    return (
+        <City cityID={9}/>
+    );
+  }
+}

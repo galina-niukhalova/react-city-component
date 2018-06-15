@@ -1,0 +1,33 @@
+.cities {
+    &__title {
+        display: flex;
+        @include centeredRow;
+        margin-top: 5rem;
+        margin-bottom: 3rem;
+        width: 65%;
+        display: flex;
+        align-items: center;
+
+        &--text {
+            flex: 1;
+            margin-right: auto;
+            font-size: 1.6rem;
+            color: $color-text;
+
+            & span:first-child {
+                font-weight: bold;
+                color: $color-secondary;
+            }
+        }
+    }
+
+    &__link {
+        &:link, 
+        &:visited { 
+            font-size: 1.6rem;
+            color: $color-green-2;
+            text-decoration: none;
+        }
+    }
+
+}

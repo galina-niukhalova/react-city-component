@@ -1,0 +1,14 @@
+.slider {
+    width: 65%;
+    @include centeredRow;
+
+    display: flex;
+    overflow: hidden;
+
+    &__arrow {
+        margin-left: 4rem;
+        flex: 0 0 4rem;
+        align-self: center;
+    }
+}
+

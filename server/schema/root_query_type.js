@@ -7,27 +7,37 @@ const URL = 'https://recruitment.theasiadev.com/Cities/getCitySlider';
 
 const {
     GraphQLObjectType,
-    GraphQLInt
+    GraphQLInt,
+    GraphQLList
 } = graphql;
+
+
+async function getCitiesList() {
+    let cities = cache.get('cities');
+
+    if (!cities) {
+        const result = await axios.get(URL);
+        cities = result.data.cities;
+        cache.put('cities', cities, 60 * 1000);
+    }
+
+    return cities;
+}
 
 const RootQuery = new GraphQLObjectType({
     name: 'RootQueryType',
     fields: {
         city: {
             type: CityType,
-            args: { id: { type: GraphQLInt } },
+            args: { index: { type: GraphQLInt } },
             resolve(parentValue, args) {
-                let cities = cache.get('cities');
-                if(cities) {
-                    return cities.find(el => el.id === args.id);
-                }
-                else {
-                    return axios.get(URL).then((resp) => {
-                        cities = resp.data.cities;
-                        cache.put('cities', cities, 60*1000);
-                        return cities.find(el => el.id === args.id);
-                    });
-                }
+                return getCitiesList().then(cities => cities[args.index]);
+            }
+        },
+        totalCities: {
+            type: GraphQLInt,
+            resolve(parentValue, args) {
+                return getCitiesList().then(cities => cities.length);
             }
         }
     }

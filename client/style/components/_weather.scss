@@ -1,0 +1,34 @@
+.weather {
+    &__info {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        font-weight: 300;
+    }
+
+    &__icon {
+        width: 4rem;
+        height: 4rem;
+        margin-right: 1.5rem;
+
+        path {
+            fill: white;
+        }
+    }
+
+    &__degree {
+        font-size: 5rem;
+    }
+
+    &__scale {
+        padding-top: 5px;
+        font-size: 2.5rem;
+        align-self: flex-start;
+    }
+
+    &__description {
+        margin-top: 1rem;
+        font-weight: 100;
+        width: 100%;
+    }
+}

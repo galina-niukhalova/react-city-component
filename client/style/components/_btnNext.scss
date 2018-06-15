@@ -1,0 +1,16 @@
+.btn-next {
+    outline: none;
+    background-color: transparent;
+    border: none;
+    transform: translateY(0);
+    transition: transform .2s;
+    cursor: pointer;
+
+    path { fill: $color-grey-light; }
+
+    svg { width: 4rem; }
+
+    &:active {
+        transform: translateY(3px);
+    }
+}

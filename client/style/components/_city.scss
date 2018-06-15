@@ -1,0 +1,61 @@
+.city {
+    display: flex;
+    height: 100%;
+
+    img {
+        width: 100%;
+        height: auto;
+        border-radius: 3px;
+        box-shadow: 0 2px 10px rgba(black, .2);
+    }
+
+    &__img {
+        flex: 0 0 50%;
+        height: max-content;
+        overflow: hidden;
+        position: relative;
+
+        &-overlay {
+            padding: 2rem;
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 50%;
+            height: 50%;
+            color: white;
+            text-align: right;
+            font-family: 'Raleway', sans-serif;
+            font-size: 1.6rem;
+        }
+    }
+
+    &__content {
+        padding: 2rem;
+        flex: 0 0 50%;
+        align-self: center;
+        border: 2px solid #f9f9f9;
+        border-radius: 3px;
+        display: flex;
+        flex-direction: column;
+        line-height: 1.9rem;
+        color: $color-primary;
+    }
+
+    &__name {
+        font-size: 2.4rem;
+        line-height: 1;
+        font-weight: bold;
+    }
+
+    &__country {
+        font-size: 1.8rem;
+    }
+
+    &__description {
+        margin: 1rem 0;
+        font-size: 1.3rem;
+        color: $color-text;
+        max-height: 6rem;
+        overflow: scroll;
+    }
+}

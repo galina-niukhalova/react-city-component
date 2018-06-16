@@ -1,6 +1,9 @@
 .animation__blur {
-    transition: all .5s ease-in-out;
+    transition: filter .5s cubic-bezier(0,0,.5,1);
 
-    &--active { filter: blur(20px); }
-    &--disable { filter: none; }
+    &--active { 
+        filter: blur(20px); 
+    }
+    &--disable {
+        filter: none; }
 }

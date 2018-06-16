@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import BtnNext from '../components/buttons/BtnNext';
 import Slide from '../components/Slide';
-import City from './City';
+import CityQuery from './CityQuery';
 
 class Slider extends Component {
     constructor(props) {
@@ -31,7 +31,7 @@ class Slider extends Component {
         return (
             <div className="slider">
                 <Slide>
-                    <City index={this.state.currentSlide} />
+                    <CityQuery index={this.state.currentSlide}/>
                 </Slide>
                 <BtnNext onClick={this.handleClick} className="slider__arrow" />
             </div>

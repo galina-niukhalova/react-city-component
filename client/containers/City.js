@@ -1,14 +1,11 @@
 import React, { Component } from 'react';
-import { graphql } from 'react-apollo';
-
-import animateSlider from '../helpers/animations';
-import GET_CITY from '../queries/fetchCity';
 
 import Stars from '../components/Stars';
 import Price from '../components/Price';
 import Button from '../components/buttons/Btn';
 import Weather from '../components/Weather';
 import Time from '../components/Time';
+import BlurTransition from '../animations/BlurTransition'
 
 const info = {
     country: 'Thailand',
@@ -18,43 +15,51 @@ const info = {
     temperature: { degree: 32, scale: 'C', description: 'Sunny with clouds' }
 }
 
+const classNames = {
+    city: 'city',
+    imgBox: 'city__img',
+    imgOverlay: 'city__img-overlay',
+    cityContent: 'city__content',
+    cityName: 'city__name',
+    cityCountry: 'city__country',
+    cityDescription: 'city__description',
+    cityLinks: 'city__links'
+}
 
-const City = ({ props, additionalClass }) => {
-    const { city } = props;
-
-    const classNames = {
-        city: 'city',
-        imgBox: 'city__img',
-        img: additionalClass.blur,
-        imgOverlay: 'city__img-overlay',
-        cityContent: 'city__content',
-        cityName: 'city__name',
-        cityCountry: 'city__country',
-        cityDescription: 'city__description',
-        cityLinks: 'city__links'
+class City extends Component {
+    state = {
+        animate: true
     }
 
-    const renderImg = () => (
-        <div className={classNames.imgBox}>
-            <img src={city.main_image} className={classNames.img} />
-            <div className={classNames.imgOverlay}>
-                <Weather
-                    degree={info.temperature.degree}
-                    scale={info.temperature.scale}
-                    iconName={'clouds'}
-                    description={info.temperature.description}
-                />
-                <Time/>
+    componentWillReceiveProps(newProps) {
+        if (this.props.index !== newProps.index)
+            this.setState(() => ({ animate: !this.state.animate }))
+    }
+
+    renderImg = () => {
+        const { city } = this.props;
+        return (
+            <div className={classNames.imgBox}>
+                <BlurTransition duration={700} in={this.state.animate}>
+                    <img src={city.main_image} className={classNames.img} />
+                </BlurTransition >
+                <div className={classNames.imgOverlay}>
+                    <Weather
+                        degree={info.temperature.degree}
+                        scale={info.temperature.scale}
+                        iconName={'clouds'}
+                        description={info.temperature.description}
+                    />
+                    <Time />
+                </div>
             </div>
-        </div>
-    );
+        )
+    }
 
-    const handleGoToTours = () => { }
-    const handleGoToAttractions = () => { }
-    const handleGoToTransport = () => { }
+    renderContent = () => {
+        const { city } = this.props;
 
-    const renderContent = () => (
-        <div className={classNames.cityContent}>
+        return (<div className={classNames.cityContent}>
             <h4 className={classNames.cityName}>
                 {city.name}
             </h4>
@@ -67,39 +72,30 @@ const City = ({ props, additionalClass }) => {
             </p>
             <Price price={info.price} currency={info.currency.name} currencySign={info.currency.sign} />
             <div className={classNames.cityLinks} >
-                <Button active={true} onClick={handleGoToTours}> Tours </Button>
-                <Button onClick={handleGoToAttractions}> Attractions </Button>
-                <Button onClick={handleGoToTransport}> Transport </Button>
+                <Button active={true} onClick={this.handleGoToTours}> Tours </Button>
+                <Button onClick={this.handleGoToAttractions}> Attractions </Button>
+                <Button onClick={this.handleGoToTransport}> Transport </Button>
             </div>
         </div>
-    );
+        )
+    };
 
-    return (
-        <div className={classNames.city}>
-            {renderImg()}
-            {renderContent()}
-        </div>
-    )
-}
-
-const AnimatedCity = animateSlider(City);
-
-class Query extends Component {
-    shouldComponentUpdate(nextProps) {
-        return !nextProps.data.loading;
-    }
+    handleGoToTours = () => { }
+    handleGoToAttractions = () => { }
+    handleGoToTransport = () => { }
 
     render() {
-        const { data } = this.props;
-        if (data.loading) return null;
-
-        return (<AnimatedCity city={data.city} />)
+        return (
+            <div className={classNames.city} >
+                {this.renderImg()}
+                {this.renderContent()}
+            </div>
+        )
     }
+
 }
 
+export default City;
 
-export default graphql(GET_CITY, {
-    options: ({ index }) => { return { variables: { index } } }
-})(Query);
 
 

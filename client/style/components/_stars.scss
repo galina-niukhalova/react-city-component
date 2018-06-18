@@ -1,8 +1,11 @@
-.stars-list {
-}
-
 .star {
     display: inline-block;
     width: 1.3rem;
     fill: $color-yellow;
+    margin-top: .2rem;
+
+    @include respond(big-desktop) {
+        width: 1.7rem;
+        margin-top: .5rem;
+    }
 }

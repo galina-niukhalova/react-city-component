@@ -5,7 +5,8 @@ import Price from '../components/Price';
 import Button from '../components/buttons/Btn';
 import Weather from '../components/Weather';
 import Time from '../components/Time';
-import BlurTransition from '../animations/BlurTransition'
+import PropTypes from 'prop-types';
+import ReactCSSTransitionReplace from 'react-css-transition-replace';
 
 const info = {
     country: 'Thailand',
@@ -13,7 +14,7 @@ const info = {
     price: 14,
     currency: { sign: '$', name: 'USD' },
     temperature: { degree: 32, scale: 'C', description: 'Sunny with clouds' }
-}
+};
 
 const classNames = {
     city: 'city',
@@ -24,25 +25,39 @@ const classNames = {
     cityCountry: 'city__country',
     cityDescription: 'city__description',
     cityLinks: 'city__links'
-}
+};
 
-class City extends Component {
+const transitionProps = {
+    transitionName: "carousel",
+    transitionEnterTimeout: 1000,
+    transitionLeaveTimeout: 1000
+};
+
+
+export default class extends Component {
     state = {
         animate: true
     }
 
-    componentWillReceiveProps(newProps) {
-        if (this.props.index !== newProps.index)
+    static propTypes = {
+        index: PropTypes.number,
+        city: PropTypes.object
+    }
+
+    componentWillReceiveProps({ index }) {
+        if (this.props.index !== index)
             this.setState(() => ({ animate: !this.state.animate }))
     }
 
     renderImg = () => {
-        const { city } = this.props;
+        const { city, index } = this.props;
         return (
             <div className={classNames.imgBox}>
-                <BlurTransition duration={700} in={this.state.animate}>
-                    <img src={city.main_image} className={classNames.img} />
-                </BlurTransition >
+                <div className={classNames.imgBox}>
+                    <ReactCSSTransitionReplace {...transitionProps}>
+                        <img src={city.main_image} key={index} />
+                    </ReactCSSTransitionReplace>
+                </div>
                 <div className={classNames.imgOverlay}>
                     <Weather
                         degree={info.temperature.degree}
@@ -53,30 +68,26 @@ class City extends Component {
                     <Time />
                 </div>
             </div>
+
         )
     }
 
     renderContent = () => {
         const { city } = this.props;
 
-        return (<div className={classNames.cityContent}>
-            <h4 className={classNames.cityName}>
-                {city.name}
-            </h4>
-            <p className={classNames.cityCountry}>
-                {info.country}
-            </p>
-            <Stars maxRating={5} rating={info.rating} />
-            <p className={classNames.cityDescription}>
-                {city.description}
-            </p>
-            <Price price={info.price} currency={info.currency.name} currencySign={info.currency.sign} />
-            <div className={classNames.cityLinks} >
-                <Button active={true} onClick={this.handleGoToTours}> Tours </Button>
-                <Button onClick={this.handleGoToAttractions}> Attractions </Button>
-                <Button onClick={this.handleGoToTransport}> Transport </Button>
+        return (
+            <div className={classNames.cityContent}>
+                <h4 className={classNames.cityName}>{city.name}</h4>
+                <p className={classNames.cityCountry}>{info.country}</p>
+                <Stars maxRating={5} rating={info.rating} />
+                <p className={classNames.cityDescription}>{city.description}</p>
+                <Price price={info.price} currency={info.currency.name} currencySign={info.currency.sign} />
+                <div className={classNames.cityLinks} >
+                    <Button active={true} onClick={this.handleGoToTours}> Tours </Button>
+                    <Button onClick={this.handleGoToAttractions}> Attractions </Button>
+                    <Button onClick={this.handleGoToTransport}> Transport </Button>
+                </div>
             </div>
-        </div>
         )
     };
 
@@ -94,8 +105,5 @@ class City extends Component {
     }
 
 }
-
-export default City;
-
 
 

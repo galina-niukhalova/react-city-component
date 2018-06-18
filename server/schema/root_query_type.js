@@ -7,8 +7,7 @@ const URL = 'https://recruitment.theasiadev.com/Cities/getCitySlider';
 
 const {
     GraphQLObjectType,
-    GraphQLInt,
-    GraphQLList
+    GraphQLInt
 } = graphql;
 
 
@@ -18,7 +17,7 @@ async function getCitiesList() {
     if (!cities) {
         const result = await axios.get(URL);
         cities = result.data.cities;
-        cache.put('cities', cities, 60 * 1000);
+        cache.put('cities', cities, 5 * 60 * 1000);
     }
 
     return cities;
@@ -31,13 +30,15 @@ const RootQuery = new GraphQLObjectType({
             type: CityType,
             args: { index: { type: GraphQLInt } },
             resolve(parentValue, args) {
-                return getCitiesList().then(cities => cities[args.index]);
+                return getCitiesList().then(cities => {
+                    return cities[args.index]
+                });
             }
         },
         totalCities: {
             type: GraphQLInt,
             resolve(parentValue, args) {
-                return getCitiesList().then(cities => cities.length);
+                return getCitiesList().then(cities => cities.length - 1);
             }
         }
     }

@@ -17,18 +17,31 @@
     }
 
     &__degree {
-        font-size: 5rem;
+        font-size: 4.5rem;
+
+        @include respond(big-desktop) {
+            font-size: 5.5rem;
+        }
     }
 
     &__scale {
         padding-top: 5px;
         font-size: 2.5rem;
         align-self: flex-start;
+
+        @include respond(big-desktop) {
+            font-size: 2.5rem;
+        }
     }
 
     &__description {
         margin-top: 1rem;
         font-weight: 100;
         width: 100%;
+
+        @include respond(big-desktop) {
+            margin-top: 1.5rem;
+            font-size: 2rem;
+        }
     }
 }

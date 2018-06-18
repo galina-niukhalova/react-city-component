@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './containers/App';
+import Cities from './containers/Cities';
 
 import ApolloClient from 'apollo-client';
 import { ApolloProvider } from 'react-apollo';
@@ -11,6 +11,6 @@ const client = new ApolloClient();
 
 ReactDOM.render(
   <ApolloProvider client={client}>
-    <App />
+    <Cities />
   </ApolloProvider>
   , document.getElementById('root'));

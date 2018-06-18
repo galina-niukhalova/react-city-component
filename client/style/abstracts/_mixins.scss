@@ -2,3 +2,9 @@
     max-width: 120rem;
     margin: 0 auto; 
 }
+
+@mixin respond($breakpoint) {
+    @if $breakpoint == big-desktop {
+        @media only screen and (min-width: 120em) { @content; } //1920
+    }
+}

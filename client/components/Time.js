@@ -1,6 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-
 
 function Time() {
     const getTime = () => {
@@ -11,12 +9,18 @@ function Time() {
         }
     }
 
-    const time = getTime();
+    const classNames = {
+        time: 'time', 
+        hour: 'time__hour',
+        period: 'time__period'
+    };
 
+    const time = getTime();
+    
     return (
-        <div className='time'>
-            <span className='time__hour'>{time.hour}</span>
-            <span className='time__period'>{time.timePeriod}</span>
+        <div className={classNames.time}>
+            <span className={classNames.hour}>{time.hour}</span>
+            <span className={classNames.period}>{time.timePeriod}</span>
         </div>
     )
 }

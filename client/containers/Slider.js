@@ -1,21 +1,16 @@
 import React, { Component } from 'react';
 
 import BtnNext from '../components/buttons/BtnNext';
-import Slide from '../components/Slide';
 import CityQuery from './CityQuery';
+import PropTypes from 'prop-types';
 
 class Slider extends Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            currentSlide: 0
-        }
+    state = {
+        currentSlide: 0
     }
 
-    renderSlideContent = () => {
-        if (this.state)
-            return React.cloneElement(this.props.children, { index: this.state.currentSlide });
+    static propTypes = {
+        totalSlides: PropTypes.number
     }
 
     handleClick = () => {
@@ -28,12 +23,18 @@ class Slider extends Component {
     }
 
     render() {
+        const classNames = {
+            slider: 'slider', 
+            slide: 'slide', 
+            slideNext: 'slider__arrow'
+        };
+
         return (
-            <div className="slider">
-                <Slide>
-                    <CityQuery index={this.state.currentSlide}/>
-                </Slide>
-                <BtnNext onClick={this.handleClick} className="slider__arrow" />
+            <div className={classNames.slider}>
+                <div className={classNames.slide}>
+                    <CityQuery index={this.state.currentSlide} />
+                </div>
+                <BtnNext onClick={this.handleClick} additionClass={classNames.slideNext} />
             </div>
         )
     }

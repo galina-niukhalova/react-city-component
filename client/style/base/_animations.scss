@@ -1,9 +1,26 @@
-.animation__blur {
-    transition: filter .5s cubic-bezier(0,0,.5,1);
+.carousel-leave {
+    transition: transform 1s ease-in-out;
+    transform: translateX(0);
+}
 
-    &--active { 
-        filter: blur(20px); 
+.carousel-leave-active {
+    transform: translateX(-100%);
+}
+  
+.carousel-enter {
+    transition: transform 1s ease-in-out;
+    transform: translateX(100%);
+}
+
+.carousel-enter-active {
+    transform: translateX(0);
+}
+
+.carousel-height {
+    // 70% - slider, 8rem - arrow, 50% - slider img, 1.25 - img ratio
+    height: calc((100vw * .7 - 8rem) * .5 / 1.25) !important;
+
+    @include respond(big-desktop) {
+        height: calc((100vw * .65 - 8rem) * .5 / 1.25) !important;
     }
-    &--disable {
-        filter: none; }
 }

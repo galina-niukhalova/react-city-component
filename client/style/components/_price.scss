@@ -4,30 +4,44 @@
 
     &__title {
         color: $color-grey-light-2;
+
+        @include respond(big-desktop) {
+            font-size: 1.4rem;
+        }
     }
 
     &__content {
         display: flex;
         align-items: center;
         color: $color-green;
+        font-weight: 600;
         font-family: 'Raleway', sans-serif;
 
         &--sign {
             margin-top: 2px;
-            font-weight: 600;
             font-size: 2.2rem;
+
+            @include respond(big-desktop) {
+                font-size: 2.7rem;
+            }
         }
 
         &--amount {
-            font-weight: 600;
             font-size: 2.5rem;
+
+            @include respond(big-desktop) {
+                font-size: 3rem;
+            }
         }
 
         &--currency {
-            margin-bottom: -10px;
-            font-weight: 500;
+            margin-bottom: -1rem;
             font-size: 1.2rem;
             margin-left: .3rem; 
+
+            @include respond(big-desktop) {
+                font-size: 1.7rem;
+            }
         }
     }
 }

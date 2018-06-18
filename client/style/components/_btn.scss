@@ -1,16 +1,20 @@
 .btn {
-    margin: 2rem 1rem 0 0;
-    padding: .7rem 2rem;
+    margin-right: 1rem;
+    padding: .6rem 1.8rem;
 
-    font-size: 1.3rem;
+    font-size: 1.2rem;
     border: 1px solid $color-grey-light-2;
     border-radius: 2px;
     color: $color-grey-light-2;
     outline: none;
     background-color: transparent;
-    transform: translateY(0);
     transition: transform .2s;
     cursor: pointer;
+
+    @include respond(big-desktop) {
+        font-size: 1.4rem;
+        padding: .9rem 2rem;
+    }
 
     &--active {
         border: 1px solid $color-green;

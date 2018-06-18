@@ -2,8 +2,9 @@ import React from 'react';
 import { graphql } from 'react-apollo';
 import PropTypes from 'prop-types';
 
-import City from './City';
+import CityQuery from './CityQuery';
 import Slider from './Slider';
+import Loader from '../components/Loader';
 
 import GET_CITIES_TOTAL from '../queries/fetchTotalCities';
 
@@ -12,16 +13,17 @@ Cities.propTypes = {
 };
 
 function Cities({ data }) {
-    const { totalCities } = data;
+    const { totalCities, error, loading } = data;
 
     const classNames = {
         cities: 'cities',
         citiesTitle: 'cities__title',
         citiesTitleText: 'cities__title--text',
         citiesLink: 'cities__link'
-    }
+    };
 
-    if(data.error) return <div>{data.error}</div>
+    if (loading) return <Loader />
+    if (error) return <div>{error}</div>
 
     return (
         <div className={classNames.cities}>
@@ -33,7 +35,7 @@ function Cities({ data }) {
                 <a href="#" className={classNames.citiesLink}>See all ></a>
             </div>
             <Slider totalSlides={totalCities}>
-                <City />
+                <CityQuery />
             </Slider>
         </div>
     );

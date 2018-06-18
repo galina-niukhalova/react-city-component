@@ -1,18 +1,23 @@
 import React from 'react'
 import Slider from '../../client/containers/Slider';
-import CityQuery from '../../client/containers/CityQuery';
 import BtnNext from '../../client/components/buttons/BtnNext';
 
 import { shallow } from 'enzyme';
 
+jest.mock('../../client/containers/CityQuery');
+import CityQuery from '../../client/containers/CityQuery';
+
 function setup({ totalSlides }) {
+
     const component = shallow(
-        <Slider totalSlides={totalSlides} />
+        <Slider totalSlides={totalSlides}>
+            <CityQuery />
+        </Slider>
     );
 
     return {
         slide: component.find(CityQuery),
-        btnNextSlide: component.find(BtnNext), 
+        btnNextSlide: component.find(BtnNext),
         slider: component
     }
 }
@@ -42,8 +47,8 @@ describe('Slider component', () => {
     });
 
     it('should show the first slide after the last slide', () => {
-        const { btnNextSlide, slider } = setup({totalSlides: 2});
-       
+        const { btnNextSlide, slider } = setup({ totalSlides: 2 });
+
         btnNextSlide.simulate('click');
         btnNextSlide.simulate('click');
         expect(slider.state().currentSlide).toEqual(0);

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import City from './City';
+import City from '../components/City';
 import { graphql } from 'react-apollo';
 import GET_CITY from '../queries/fetchCity';
 
@@ -18,7 +18,8 @@ class Query extends Component {
         return (
             <City
                 city={data.city}
-                index={index} />
+                index={index}
+            />
         )
     }
 }

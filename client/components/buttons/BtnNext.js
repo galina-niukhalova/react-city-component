@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 BtnNext.propTypes = {
     additionClass: PropTypes.string, 
     onClick: PropTypes.func.isRequired
-}
+};
 
 function BtnNext({ additionClass, onClick }) {
     const classNames = {

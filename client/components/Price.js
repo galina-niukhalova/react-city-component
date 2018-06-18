@@ -5,7 +5,7 @@ Price.propTypes = {
     price: PropTypes.number.isRequired,
     currency: PropTypes.string.isRequired,
     currencySign: PropTypes.string
-}
+};
 
 function Price({ price, currency, currencySign }) {
     const classNames = {

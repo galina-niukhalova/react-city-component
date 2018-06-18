@@ -1,0 +1,43 @@
+.loader__wrapper {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.loader {
+    width: 10rem;
+    height: 10rem;
+    position: relative;
+    animation-fill-mode: forwards;
+    animation: rotate 2s 0s infinite linear;
+
+    &::before,
+    &::after 
+    {
+        display: block;
+        content: '';
+        width: 5rem;
+        height: 5rem;
+        background-color: $color-green-2;
+        border-radius: 100%;
+
+        position: absolute;
+    }
+
+    &::before {
+        top: 0;
+        bottom: auto;
+        animation-fill-mode: forwards;
+        animation: dotLoader 2s 0s infinite linear;
+    }
+
+    &::after {
+        top: auto;
+        bottom: 0;
+
+        animation-fill-mode: forwards;
+        animation: dotLoader 2s -1s infinite linear;
+    }
+}

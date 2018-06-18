@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 
 import BtnNext from '../components/buttons/BtnNext';
-import CityQuery from './CityQuery';
 import PropTypes from 'prop-types';
 
 class Slider extends Component {
@@ -23,16 +22,19 @@ class Slider extends Component {
     }
 
     render() {
+        const { currentSlide } = this.state;
+        const { children } = this.props;
+
         const classNames = {
-            slider: 'slider', 
-            slide: 'slide', 
+            slider: 'slider',
+            slide: 'slide',
             slideNext: 'slider__arrow'
         };
-
+        
         return (
             <div className={classNames.slider}>
                 <div className={classNames.slide}>
-                    <CityQuery index={this.state.currentSlide} />
+                    {React.cloneElement(children, { index: currentSlide })}
                 </div>
                 <BtnNext onClick={this.handleClick} additionClass={classNames.slideNext} />
             </div>

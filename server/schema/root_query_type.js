@@ -38,7 +38,7 @@ const RootQuery = new GraphQLObjectType({
         totalCities: {
             type: GraphQLInt,
             resolve(parentValue, args) {
-                return getCitiesList().then(cities => cities.length - 1);
+                return getCitiesList().then(cities => cities.length);
             }
         }
     }
